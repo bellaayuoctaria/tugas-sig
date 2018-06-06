@@ -1,0 +1,186 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width"> 
+  <title>Tugas Sistem Informasi Geografis</title> 
+  <link rel="stylesheet" type="text/css" href="markercontoh2.css">
+</head>
+
+<body>
+  <h1><center>Sistem Informasi Geografis SPBU Kota Bandar Lampung</center></h1>
+	<div id="menu">
+			<ul>
+					<div id="heading">
+						</div>
+					<li><a href="index.html">SPBU</a></li>
+					<li><a href="artikel.html">About Us</a></li>
+					<li><a href="#">Rest Area</a>
+				<li><a href="atm.html">ATM Center</a></li>
+				<li><a href="Harga.html">Update Harga</a></li
+						</ul>				
+	</div>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+
+<body> 
+	<div id="kotak">
+		<div id="map" style="width:100%;height:400px;"></div>
+		<div class="footer"> <center> Designed by Elmira Ramadhanti, Erizki wala, Jihan Farahdhilah</center></div>
+		</form>
+	</div>   
+</body> 
+
+<script>
+
+function initialize(){
+	var mapOptions = {
+		zoom:9,
+		center: new google.maps.LatLng(-5.375130, 105.253640),
+	};
+	map = new google.maps.Map(document.getElementById('map'), mapOptions);
+	
+	infoWindow = new google.maps.InfoWindow();
+	var infowindow = new google.maps.InfoWindow();
+	
+	var contentString;
+	infowindow.setContent(contentString);
+  
+	var marker = new google.maps.Marker();
+	marker.addListener('click',function(){
+		infowindow.open(map,marker);
+  ``});
+	marker.setMap(map);
+	
+	var infoWin = new google.maps.InfoWindow();
+    var labels = 'Bandar Lampung';
+        
+    var markers = locations.map(function(location, i) {
+        var marker = new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+        });
+		google.maps.event.addListener(marker, 'click', function(evt) {
+			infoWin.setContent(location.info);
+			infoWin.open(map, marker);
+		})
+		return marker;
+    }); 
+    
+	console.log(locations);
+    console.log(markers);
+
+    var markerCluster = new MarkerClusterer(map, markers,
+        {imagePath: 'images/m'});
+        
+    var d = markerCluster.distanceBetweenPoints_(markers[2].getPosition(),markers[4].getPosition());
+    console.log(markerCluster.getCalculator());
+
+	var unila = new google.maps.Polygon({
+		paths:[
+			new google.maps.LatLng(-5.3590439, 105.2341747),
+			new google.maps.LatLng(-5.381262, 105.2210641),
+			new google.maps.LatLng(-5.3680861, 105.2332413),
+			new google.maps.LatLng(-5.3674773, 105.2338153)
+		], 
+		strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '<center><h2>SPBU<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Alamat :<br>'+
+				'Fasilitas : <br>'+
+				'Lain-lain : <br></center>', 
+		map: map
+	});
+	google.maps.event.addListener(unila, 'click', showArrays);
+
+    }
+	
+	function showArrays(event) {
+		var vertices = this.getPath();
+		var contentString = '<b>' + this.name + '</b>';
+		infoWindow.setPosition(event.latLng);
+		infoWindow.setContent(contentString);
+		infoWindow.open(map);
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+    var locations = [
+        {lat: -5.381262, lng: 105.2210641, info: "<p>SPBU jalan Pramuka, rajabasa"},
+        {lat: -5.3590439, lng: 105.2341747, info: "<p>SPBU Jalan By Pass Soekarno Hatta, Rajabasa raya"},
+        {lat: -5.3674773, lng: 105.2338153, info: "<p>SPBU Jl. ZA Pagar Alam No.72, Rajabasa</p>"},
+        {lat: -5.3680861, lng: 105.2332413, info: "<p>SPBU Jl. Zaenal Abidin Pagar Alam, Rajabasa</p>"},
+        {lat: -5.366831, lng: 105.2657282, info: "<p>SPBU SPBU Jl. Soekarno - Hatta, Labuhan Ratu, Kedaton</p>"},
+        {lat: -5.3884293, lng: 105.2883554, info: "<p>SPBU Jl. Soekarno Hatta (bypass) No.256, Way Dadi, Sukarame</p>"},
+        {lat: -5.3964616, lng: 105.2891493, info: "<p>SPBU Jl. Soekarno - Hatta, Kalibalau Kencana,kedamaian</p>"},
+        {lat: -5.3940049, lng: 105.2322435, info: "<p>SPBU Jl. Imam Bonjol, Langkapura</p>"},
+        {lat: -5.4141709, lng: 105.2468991, info: "<p>SPBU Jl. Cut Nyak Dien, Kaliawi</p>"},
+        {lat: -5.4216689, lng: 105.246942, info: "<p>SPBU Jl. P. Emir Moh. Noer, Durian Payung</p>"}, 
+        {lat: -5.4320933, lng: 105.2535081, info: "<p>SPBU Jl. RW. Monginsidi, Pengajaran, North Teluk Betung</p>"}, 
+        {lat: -5.444376, lng: 105.2662325, info: "<p>SPBU Jl. Pattimura No.1, Kupang Kota, Tlk. Betung Utara</p>"}, 
+        {lat: -5.4444401, lng: 105.2696872, info: "<p>SPBU Jl. Sultan Hasanudin, Kangkung, Bumi Waras</p>"},
+        {lat: -5.4231002, lng: 105.2712107, info: "<p>SPBU Jl. Jend. Sudirman No.142, Pahoman, Engal</p>"},
+        {lat: -5.4068651, lng: 105.2744079, info: "<p>SPBU Jl. Pangeran Antasari No.96, Kedamaian</p>"},
+        {lat: -5.3863571, lng: 105.2697301, info: "<p>SPBU Jl. Ki Maja, Kedaton</p>"},
+        {lat: -5.3827681, lng: 105.2587867, info: "<p>SPBU Jalan ZAENAL ABIDIN PAGAR ALAM, Labuhan Ratu, Kedaton</p>"},
+        {lat: -5.3589905, lng: 105.285244, info: "<p>SPBU Jl. Ratu Dibalau, Way Kandis, Tj. Senang</p>"},
+        {lat: -5.4493317, lng: 105.3040838, info: "<p>SPBU Jl. Yos Sudarso No.12, Sukaraja, Bumi Waras</p>"},
+        {lat: -5.4032389, lng: 105.2818751, info: "<p>SPBU Jl. Pangeran Antasari No.89, Tj. Baru, Kedamaian</p>"}, 
+        {lat: -5.420996, lng: 105.2524567, info: "<p>SPBU Jl. Jenderal Ahmad Yani No.10, Palapa</p>"},
+        {lat: -5.364005, lng: 105.2757858, info: "<p>SPBU Jl. Ratu Dibalau, Tj. Senang</p>"},
+        {lat: -5.3639202, lng: 105.2759112, info: "<p>SPBU Jl. Ratu Dibalau No.35, Tj. Senang</p>"}
+        ]
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZB9ZJU2sial0Lcy25X2Rv0bti9HlFd1o&callback= ap"> </script> 
+<script>
+        var map = null;
+        var center = { lat: -5.375130, lng: 105.253640};
+        var infowindow;
+
+        var config = {
+            apiKey: "AIzaSyCU5XWOsQbzpNFzRyRTjK3Wt2O-zF5yZ44",
+            authDomain: "geojson-e5b16.firebaseapp.com",
+            databaseURL: "https://geojson-e5b16.firebaseio.com",
+            projectId: "geojson-e5b16",
+            storageBucket: "geojson-e5b16.appspot.com",
+            messagingSenderId: "97398792162"
+        };
+        firebase.initializeApp(config);
+
+        var db = firebase.database();
+        var dataRef = db.ref('bandar_lampung')
+
+        dataRef.on('value', showData, showError);
+        function showData(data){
+            //console.log(data.val());
+            map.data.addGeoJson(data.val()); 
+            map.data.setStyle({
+                fillColor :'#ff1e1e',
+                strokeWeight: 0.2
+            });
+            map.data.addListener('click', function(event){
+                infoWindowContent = event.feature.getProperty('DESA')+"<br>"+event.feature.getProperty('KECAMATAN');
+                infowindow.setContent(infoWindowContent);
+                infowindow.setPosition(event.latLng);
+                infowindow.open(map);
+        
+            });
+        }
+        function showError(err){
+            console.log(err);
+        }
+        function initMap(){
+            map = new google.maps.Map(document.getElementById('map'),{
+                zoom: 11,
+                center: center
+            });
+            infowindow = new google.maps.InfoWindow();
+        }
+    </script>
+<script src="src/markerclusterer.js"></script>
+</html>
